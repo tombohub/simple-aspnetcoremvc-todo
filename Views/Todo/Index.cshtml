@@ -1,0 +1,19 @@
+@model TodoIndexViewModel
+
+<form asp-action="Create" method="post" asp-controller="Todo">
+    <input  asp-for="NewTodo.Title"/>
+    <span asp-validation-for="NewTodo.Title"></span>
+    <span asp-validation-for="NewTodo.Status"></span>
+    <button type="submit">Add</button>
+</form>
+
+
+    @foreach(var todo in Model.Todos)
+    {
+        <li>
+            @todo.Title | @todo.Status | 
+            <a asp-action="ToggleStatus" asp-route-id="@todo.Id">
+                @(todo.Status == TodoStatus.Done ?  "Mark not Done" : "Mark Done")</a>
+            <a asp-action="Delete" asp-route-id="@todo.Id" >X</a>
+        </li>
+    }
